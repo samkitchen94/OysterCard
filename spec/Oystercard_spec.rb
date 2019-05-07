@@ -10,6 +10,11 @@ describe Oystercard do
      subject.top_up(5)
      expect(subject.balance).to eq(5)
    end
+
+   it "Raises error is balance greater than £90" do
+     subject.top_up(Oystercard::MAX_BALANCE)
+     expect{ subject.top_up(1) }.to raise_error("Max balance £90")
+   end
  end
 
 end
