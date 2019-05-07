@@ -1,0 +1,14 @@
+1 - In order to use public transport
+As a customer
+I want money on my card
+
+Object | Message
+card   | Balance - default value = 0
+
+
+2 - In order to keep using public transport
+As a customer
+I want to add money to my card
+
+Object | Message
+card   | top_up --> balance
