@@ -27,12 +27,29 @@ describe Oystercard do
    end
 
   describe "Oystercard functions" do
-    it "Oystercard can touch in" do
-      expect(subject.touch_in).to be true
+    it "Oystercard can touch in and be in journey" do
+      subject.touch_in
+      expect(subject.in_journey?).to be true
+    end
+
+    it "Raises an error if already touched in" do
+      subject.touch_in
+      subject.in_journey?
+      expect{ subject.touch_in }.to raise_error("In journey, can't touch in again")
     end
 
     it "Oystercard can touch out" do
-      expect(subject.touch_out).to be true
+      subject.touch_in
+      subject.in_journey?
+      subject.touch_out
+      expect(subject.in_journey).to be false
+    end
+
+    it "Raises and error if already touched out" do
+      subject.touch_in
+      subject.in_journey?
+      subject.touch_out
+      expect{ subject.touch_out }.to raise_error("Already touched out")
     end
 
     it "Oystercard can be in_journey?" do

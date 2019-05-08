@@ -28,11 +28,17 @@ class Oystercard
   end
 
   def touch_in
-    true
+    fail "In journey, can't touch in again" if @in_journey == true
+
+    @in_journey = true
+    return @in_journey
   end
 
   def touch_out
-    true
+    fail "Already touched out" if @in_journey == false
+    
+    @in_journey = false
+    return @in_journey
   end
 
   def in_journey?
