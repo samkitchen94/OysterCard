@@ -1,6 +1,17 @@
 require 'Oystercard'
 describe Oystercard do
 
+  def one_journey
+    subject.top_up(10)
+    subject.touch_in
+    subject.touch_out
+  end
+
+  def touched_in
+    subject.top_up(10)
+    subject.touch_in
+  end
+
  describe "balance" do
    it "Has a default balance of 0" do
      expect(subject.balance).to eq(0)
@@ -17,8 +28,7 @@ describe Oystercard do
    end
 
    it "deducts the balance and returns new balance" do
-     subject.top_up(10)
-     subject.touch_in
+     touched_in
      expect{ subject.touch_out }.to change{ subject.balance }.by(-1)
    end
 
@@ -28,15 +38,12 @@ describe Oystercard do
 
   describe "Oystercard functions" do
     it "Oystercard can touch in and be in journey" do
-      subject.top_up(5)
-      subject.touch_in
+      touched_in
       expect(subject.in_journey?).to be true
     end
 
     it "Raises an error if already touched in" do
-      subject.top_up(5)
-      subject.touch_in
-      subject.in_journey?
+      touched_in
       expect{ subject.touch_in }.to raise_error("In journey, can't touch in again")
     end
 
@@ -46,30 +53,23 @@ describe Oystercard do
     end
 
     it "Oystercard can touch out and not be in journey" do
-      subject.top_up(5)
-      subject.touch_in
-      subject.touch_out
+      one_journey
       expect(subject.in_journey).to be false
     end
 
     it "Raises and error if already touched out" do
-      subject.top_up(5)
-      subject.touch_in
-      subject.touch_out
+      one_journey
       expect{ subject.touch_out }.to raise_error("Already touched out")
     end
 
     it "Deducts the fare after touching out" do
-      subject.top_up(5)
-      subject.touch_in
+      touched_in
       expect{ subject.touch_out }.to change{subject.balance}.by(-1)
     end
 
     it "Oystercard can be in_journey?" do
       expect(subject.in_journey?).to be false
     end
-
-
 
   end
 
