@@ -134,7 +134,7 @@ NoMethodError (undefined method `deduct' for #<Oystercard:0x00007f9ed9109558 @ba
 GREEN -
 Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
 2.6.0 :001 > require './lib/Oystercard'
- => true 
+ => true
 2.6.0 :002 > oyster = Oystercard.new
  => #<Oystercard:0x00007fd5c79824f8 @balance=0, @max_bal=90>
 2.6.0 :003 > oyster.balance
@@ -154,3 +154,44 @@ ArgumentError (wrong number of arguments (given 0, expected 1))
 2.6.0 :007 > oyster.deduct(2)
  => 2
 2.6.0 :008 > quit
+
+GREEN - Error message method
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007f82da9a6c30 @balance=0, @max_bal=90>
+2.6.0 :003 > oyster.deduct(5)
+Traceback (most recent call last):
+        5: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        2: from (irb):3
+        1: from /Users/vijaykurian/Projects/OysterCard_Lucy/lib/Oystercard.rb:22:in `deduct'
+RuntimeError (please top up, minimum balance reached)
+2.6.0 :004 > quit
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$
+
+5 -
+In order to get through the barriers.
+As a customer
+I need to touch in and out.
+
+Object | Message
+Card   | touch_in
+Card   | touch_out
+Card   | in_journey?
+                              Feature Test
+RED -
+
+GREEN -
+
+
+
+6 -
+In order to pay for my journey
+As a customer
+I need to have the minimum amount (£1) for a single journey.
+
+Object | Message
+card   | Minimum Balance --> £1 ==> modify touch_in to raise error

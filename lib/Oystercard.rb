@@ -29,6 +29,7 @@ class Oystercard
 
   def touch_in
     fail "In journey, can't touch in again" if @in_journey == true
+    # fail "insufficient balance" if @balance < 1
 
     @in_journey = true
     return @in_journey
@@ -36,7 +37,7 @@ class Oystercard
 
   def touch_out
     fail "Already touched out" if @in_journey == false
-    
+
     @in_journey = false
     return @in_journey
   end
