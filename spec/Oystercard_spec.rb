@@ -3,13 +3,22 @@ describe Oystercard do
 
   def one_journey
     subject.top_up(10)
-    subject.touch_in
+    subject.touch_in(:station)
     subject.touch_out
   end
 
   def touched_in
     subject.top_up(10)
-    subject.touch_in
+    subject.touch_in(:station)
+  end
+
+  describe "let" do
+    let(:station) { double :station }
+    it "stores the entry station" do
+      subject.top_up(10)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
+    end
   end
 
  describe "balance" do
@@ -44,12 +53,12 @@ describe Oystercard do
 
     it "Raises an error if already touched in" do
       touched_in
-      expect{ subject.touch_in }.to raise_error("In journey, can't touch in again")
+      expect{ subject.touch_in(:station) }.to raise_error("In journey, can't touch in again")
     end
 
     it " raises an error if minimum balance is less than £1" do
       subject.balance < Oystercard::MIN_FARE
-      expect{ subject.touch_in }.to raise_error("insufficient balance")
+      expect{ subject.touch_in(:station) }.to raise_error("insufficient balance")
     end
 
     it "Oystercard can touch out and not be in journey" do
