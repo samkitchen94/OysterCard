@@ -18,48 +18,57 @@ describe Oystercard do
 
    it "deducts the balance and returns new balance" do
      subject.top_up(10)
-     subject.deduct(5)
-     expect(subject.balance).to eq(5)
+     subject.touch_in
+     expect{ subject.touch_out }.to change{ subject.balance }.by(-1)
    end
 
-   it "raise an error if balance is less than default balance" do
-     expect { subject.deduct(5) }.to raise_error("please top up, minimum balance reached")
-   end
+   # it "raise an error if balance is less than default balance" do
+   #   expect { subject.deduct(5) }.to raise_error("please top up, minimum balance reached")
+   # end
 
   describe "Oystercard functions" do
     it "Oystercard can touch in and be in journey" do
+      subject.top_up(5)
       subject.touch_in
       expect(subject.in_journey?).to be true
     end
 
     it "Raises an error if already touched in" do
+      subject.top_up(5)
       subject.touch_in
       subject.in_journey?
       expect{ subject.touch_in }.to raise_error("In journey, can't touch in again")
     end
 
     it " raises an error if minimum balance is less than £1" do
-      subject.balance < 1
+      subject.balance < Oystercard::MIN_FARE
       expect{ subject.touch_in }.to raise_error("insufficient balance")
     end
 
     it "Oystercard can touch out and not be in journey" do
+      subject.top_up(5)
       subject.touch_in
-      # subject.in_journey?
       subject.touch_out
       expect(subject.in_journey).to be false
     end
 
     it "Raises and error if already touched out" do
+      subject.top_up(5)
       subject.touch_in
-      # subject.in_journey?
       subject.touch_out
       expect{ subject.touch_out }.to raise_error("Already touched out")
+    end
+
+    it "Deducts the fare after touching out" do
+      subject.top_up(5)
+      subject.touch_in
+      expect{ subject.touch_out }.to change{subject.balance}.by(-1)
     end
 
     it "Oystercard can be in_journey?" do
       expect(subject.in_journey?).to be false
     end
+
 
 
   end
