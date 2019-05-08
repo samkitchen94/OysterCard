@@ -2,7 +2,7 @@ class Oystercard
   DEFAULT_VALUE = 0
   MAX_BALANCE = 90
   IN_JOURNEY = false
-  # MIN_BALANCE = 0
+  MIN_BALANCE = 1
   attr_reader :balance
   attr_accessor :in_journey
   # def balance
