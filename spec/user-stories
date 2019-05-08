@@ -4,6 +4,22 @@ I want money on my card
 
 Object | Message
 card   | Balance - default value = 0
+                                    Feature Test:
+
+RED -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > exit
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oystercard.new
+Traceback (most recent call last):
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        2: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):2
+NameError (uninitialized constant Oystercard)
+2.6.0 :003 > exit
 
 
 2 - In order to keep using public transport
@@ -12,3 +28,66 @@ I want to add money to my card
 
 Object | Message
 card   | top_up --> balance
+
+                                    Feature Test:
+RED -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007f9d1796b728>
+2.6.0 :003 > oyster.balance
+Traceback (most recent call last):
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        2: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):3
+NoMethodError (undefined method `balance' for #<Oystercard:0x00007f9d1796b728>)
+2.6.0 :004 > exit
+
+GREEN -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007feb698bb350 @value=0>
+2.6.0 :003 > oyster.balance
+ => 0
+2.6.0 :004 > exit
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ rspec
+Finished in 0.00884 seconds (files took 0.08904 seconds to load)
+1 example, 0 failures
+
+3 - In order to protect my money from theft or loss
+As a customer
+I want a maximum limit (of £90) on my card
+
+Object | Message
+card   | modify top_up --> MAX_LIMIT = 90 --> balance
+                                Feature Test:
+RED -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007fe3f5197338 @balance=0>
+2.6.0 :003 > oyster.top_up
+Traceback (most recent call last):
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        2: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):3
+NoMethodError (undefined method `top_up' for #<Oystercard:0x00007fe3f5197338 @balance=0>)
+2.6.0 :004 > exit
+
+GREEN -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007f8eb69c69d0 @balance=0>
+2.6.0 :003 > oyster.top_up(5)
+ => 5
+2.6.0 :004 > oyster.top_up(5)
+ => 10
+2.6.0 :005 > exit
