@@ -1,8 +1,10 @@
 class Oystercard
   DEFAULT_VALUE = 0
   MAX_BALANCE = 90
+  IN_JOURNEY = false
   # MIN_BALANCE = 0
   attr_reader :balance
+  attr_accessor :in_journey
   # def balance
   #   @value
   # end
@@ -10,6 +12,7 @@ class Oystercard
   def initialize
     @balance = DEFAULT_VALUE
     @max_bal = MAX_BALANCE
+    @in_journey = IN_JOURNEY
   end
 
   def top_up(amount)
@@ -22,5 +25,17 @@ class Oystercard
     fail "please top up, minimum balance reached" if @balance - fare <= DEFAULT_VALUE
     @balance -= fare
     return @balance
+  end
+
+  def touch_in
+    true
+  end
+
+  def touch_out
+    true
+  end
+
+  def in_journey?
+    @in_journey
   end
 end

@@ -24,8 +24,23 @@ describe Oystercard do
 
    it "raise an error if balance is less than default balance" do
      expect { subject.deduct(5) }.to raise_error("please top up, minimum balance reached")
-
    end
+
+  describe "Oystercard functions" do
+    it "Oystercard can touch in" do
+      expect(subject.touch_in).to be true
+    end
+
+    it "Oystercard can touch out" do
+      expect(subject.touch_out).to be true
+    end
+
+    it "Oystercard can be in_journey?" do
+      expect(subject.in_journey?).to be false
+    end
+
+
+  end
 
  end
 
