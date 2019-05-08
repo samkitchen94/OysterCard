@@ -61,11 +61,6 @@ describe Oystercard do
       expect{ subject.touch_in(:station) }.to raise_error("insufficient balance")
     end
 
-    it "Oystercard can touch out and not be in journey" do
-      one_journey
-      expect(subject.in_journey).to be false
-    end
-
     it "Raises and error if already touched out" do
       one_journey
       expect{ subject.touch_out }.to raise_error("Already touched out")
