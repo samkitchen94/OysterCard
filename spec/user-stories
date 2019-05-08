@@ -65,6 +65,7 @@ I want a maximum limit (of £90) on my card
 Object | Message
 card   | modify top_up --> MAX_LIMIT = 90 --> balance
                                 Feature Test:
+
 RED -
 Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
 2.6.0 :001 > require './lib/Oystercard'
@@ -91,3 +92,65 @@ Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
 2.6.0 :004 > oyster.top_up(5)
  => 10
 2.6.0 :005 > exit
+
+4 - In order to pay for my journey
+As a customer
+I need my fare deducted from my card
+
+Object | Message
+card   | deduct --> balance
+                                Feature Test:
+RED -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > oyster = Oysercard.new
+Traceback (most recent call last):
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        2: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):2
+NameError (uninitialized constant Oysercard)
+Did you mean?  Oystercard
+2.6.0 :003 > oyster = Oystercard.new
+ => #<Oystercard:0x00007f9ed9109558 @balance=0, @max_bal=90>
+2.6.0 :004 > oyster.deduct(amount)
+Traceback (most recent call last):
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        2: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        1: from (irb):4
+NameError (undefined local variable or method `amount' for main:Object)
+2.6.0 :005 > oyster.deduct
+Traceback (most recent call last):
+        5: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        2: from (irb):5
+        1: from (irb):5:in `rescue in irb_binding'
+NoMethodError (undefined method `deduct' for #<Oystercard:0x00007f9ed9109558 @balance=0, @max_bal=90>)
+2.6.0 :006 > quit
+
+GREEN -
+Vijays-MacBook-Pro:OysterCard_Lucy vijaykurian$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true 
+2.6.0 :002 > oyster = Oystercard.new
+ => #<Oystercard:0x00007fd5c79824f8 @balance=0, @max_bal=90>
+2.6.0 :003 > oyster.balance
+ => 0
+2.6.0 :004 > oyster.deduct
+Traceback (most recent call last):
+        5: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `<main>'
+        4: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/bin/irb:23:in `load'
+        3: from /Users/vijaykurian/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `<top (required)>'
+        2: from (irb):4
+        1: from /Users/vijaykurian/Projects/OysterCard_Lucy/lib/Oystercard.rb:21:in `deduct'
+ArgumentError (wrong number of arguments (given 0, expected 1))
+2.6.0 :005 > oyster.deduct(1)
+ => -1
+2.6.0 :006 > oyster.top_up(5)
+ => 4
+2.6.0 :007 > oyster.deduct(2)
+ => 2
+2.6.0 :008 > quit
