@@ -22,6 +22,11 @@ describe Oystercard do
      expect(subject.balance).to eq(5)
    end
 
+   it "raise an error if balance is less than default balance" do
+     expect { subject.deduct(5) }.to raise_error("please top up, minimum balance reached")
+
+   end
+
  end
 
 end

@@ -19,7 +19,8 @@ class Oystercard
   end
 
   def deduct(fare)
-    @balance = @balance - fare
+    fail "please top up, minimum balance reached" if @balance - fare <= DEFAULT_VALUE
+    @balance -= fare
     return @balance
   end
 end
