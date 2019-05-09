@@ -132,3 +132,14 @@ NoMethodError (undefined method `deduct' for #<Oystercard:0x00007f9ed9109558 @ba
 2.6.0 :006 > quit
 
 GREEN -
+
+---
+
+In order to know where I have been
+As a customer
+I want to see all my previous trips
+
+object | behaviours
+-|-
+customer |
+oystercard | view_trips

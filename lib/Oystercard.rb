@@ -25,7 +25,7 @@ class Oystercard
     @entry_station = station
   end
 
-  def touch_out
+  def touch_out(exit_station)
     fail "Already touched out" if in_journey? == false
 
     deduct(MIN_FARE)

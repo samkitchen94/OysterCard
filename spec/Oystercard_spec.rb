@@ -1,23 +1,24 @@
 require 'Oystercard'
 describe Oystercard do
-
+let(:entry_station) { double :entry_station }
+let(:exit_station) { double :exit_station }
   def one_journey
     subject.top_up(10)
-    subject.touch_in(:station)
-    subject.touch_out
+    subject.touch_in(:entry_station)
+    subject.touch_out(:exit_station)
   end
 
   def touched_in
     subject.top_up(10)
-    subject.touch_in(:station)
+    subject.touch_in(:entry_station)
   end
 
   describe "let" do
-    let(:station) { double :station }
+    #let(:station) { double :station }
     it "stores the entry station" do
       subject.top_up(10)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq station
+      subject.touch_in(entry_station)
+      expect(subject.entry_station).to eq entry_station
     end
   end
 
@@ -38,12 +39,8 @@ describe Oystercard do
 
    it "deducts the balance and returns new balance" do
      touched_in
-     expect{ subject.touch_out }.to change{ subject.balance }.by(-1)
+     expect{ subject.touch_out(:exit_station) }.to change{ subject.balance }.by(-1)
    end
-
-   # it "raise an error if balance is less than default balance" do
-   #   expect { subject.deduct(5) }.to raise_error("please top up, minimum balance reached")
-   # end
 
   describe "Oystercard functions" do
     it "Oystercard can touch in and be in journey" do
@@ -63,18 +60,23 @@ describe Oystercard do
 
     it "Raises and error if already touched out" do
       one_journey
-      expect{ subject.touch_out }.to raise_error("Already touched out")
+      expect{ subject.touch_out(:exit_station) }.to raise_error("Already touched out")
     end
 
     it "Deducts the fare after touching out" do
       touched_in
-      expect{ subject.touch_out }.to change{subject.balance}.by(-1)
+      expect{ subject.touch_out(:exit_station) }.to change{subject.balance}.by(-1)
     end
 
     it "Oystercard can be in_journey?" do
       expect(subject.in_journey?).to be false
     end
 
+    it "oystercard responds to touch out with one argument" do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      expect(subject).to respond_to(:touch_out).with(1).argument
+    end
   end
 
  end
