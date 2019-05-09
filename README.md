@@ -143,3 +143,26 @@ object | behaviours
 -|-
 customer |
 oystercard | view_trips
+
+```
+Makerss-MacBook-Pro-8:OysterCard student$ irb
+2.6.0 :001 > require './lib/Oystercard'
+ => true
+2.6.0 :002 > card = Oystercard.new
+ => #<Oystercard:0x00007fdd771a7528 @balance=0, @max_bal=90, @entry_station=nil, @exit_station=nil, @journey={}>
+2.6.0 :003 > card.top_up(10)
+ => 10
+2.6.0 :004 > card.touch_in("here")
+ => "here"
+2.6.0 :005 > card.touch_out("there")
+ => {"here"=>"there"}
+```
+---
+In order to know how far I have travelled
+As a customer
+I want to know what zone a station is in
+
+object | behaviours
+-|-
+customer |
+station | zone

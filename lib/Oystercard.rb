@@ -2,7 +2,8 @@ class Oystercard
   DEFAULT_BALANCE = 0
   MAX_BALANCE = 90
   MIN_FARE = 1
-  attr_reader :balance, :entry_station
+
+  attr_reader :balance, :entry_station, :journey
   # def balance
   #   @value
   # end
@@ -10,6 +11,8 @@ class Oystercard
     @balance = DEFAULT_BALANCE
     @max_bal = MAX_BALANCE
     @entry_station = nil
+    @exit_station = nil
+    @journey = {}
   end
 
   def top_up(amount)
@@ -29,11 +32,20 @@ class Oystercard
     fail "Already touched out" if in_journey? == false
 
     deduct(MIN_FARE)
-    @entry_station = nil
+
+    @exit_station = exit_station
+    log_journey
+    @journey
   end
 
   def in_journey?
     @entry_station != nil
+  end
+
+  def log_journey
+    @journey[@entry_station] = @exit_station
+    @entry_station = nil
+    @exit_station = nil
   end
 
 private

@@ -1,7 +1,11 @@
 require 'Oystercard'
+
 describe Oystercard do
+
 let(:entry_station) { double :entry_station }
 let(:exit_station) { double :exit_station }
+
+
   def one_journey
     subject.top_up(10)
     subject.touch_in(:entry_station)
@@ -42,7 +46,8 @@ let(:exit_station) { double :exit_station }
      expect{ subject.touch_out(:exit_station) }.to change{ subject.balance }.by(-1)
    end
 
-  describe "Oystercard functions" do
+  describe "Oystercard touch in and touch out" do
+
     it "Oystercard can touch in and be in journey" do
       touched_in
       expect(subject.in_journey?).to be true
@@ -76,6 +81,22 @@ let(:exit_station) { double :exit_station }
       subject.top_up(10)
       subject.touch_in(entry_station)
       expect(subject).to respond_to(:touch_out).with(1).argument
+    end
+
+    # it "card should remember exit station" do
+    #   touched_in
+    #   expect(subject.touch_out(exit_station)).to eq(exit_station)
+    # end
+
+    it "defaults journey as empty hash" do
+      expect(subject.journey).to be_empty
+    end
+
+    it "stores journey in a hash" do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journey).to eq({entry_station => exit_station})
     end
   end
 
