@@ -73,9 +73,9 @@ let(:exit_station) { double :exit_station }
       expect{ subject.touch_out(:exit_station) }.to change{subject.balance}.by(-1)
     end
 
-    it "Oystercard can be in_journey?" do
-      expect(subject.in_journey?).to be false
-    end
+    # it "Oystercard can be in_journey?" do
+    #   expect(subject.in_journey?).to be false
+    # end
 
     it "oystercard responds to touch out with one argument" do
       subject.top_up(10)
@@ -88,9 +88,9 @@ let(:exit_station) { double :exit_station }
     #   expect(subject.touch_out(exit_station)).to eq(exit_station)
     # end
 
-    it "defaults journey as empty hash" do
-      expect(subject.journey).to be_empty
-    end
+    # it "defaults journey as empty hash" do
+    #   expect(subject.journey).to be_empty
+    # end
 
     it "stores journey in a hash" do
       subject.top_up(10)

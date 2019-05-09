@@ -1,3 +1,5 @@
+require 'journey'
+
 class Oystercard
   DEFAULT_BALANCE = 0
   MAX_BALANCE = 90
@@ -10,7 +12,7 @@ class Oystercard
   def initialize
     @balance = DEFAULT_BALANCE
     @max_bal = MAX_BALANCE
-    @entry_station = nil
+    # @entry_station = nil
     @exit_station = nil
     @journey = {}
   end
@@ -38,9 +40,9 @@ class Oystercard
     @journey
   end
 
-  def in_journey?
-    @entry_station != nil
-  end
+  # def in_journey?
+  #   @entry_station != nil
+  # end
 
   def log_journey
     @journey[@entry_station] = @exit_station

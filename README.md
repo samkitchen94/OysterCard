@@ -166,3 +166,30 @@ object | behaviours
 -|-
 customer |
 station | zone
+
+```
+Makerss-MacBook-Pro-8:OysterCard student$ irb -r ./lib/station
+2.6.0 :001 > station = Station.new("here", 4)
+ => #<Station:0x00007ff0aba5a6b0 @name="here", @zone=4>
+2.6.0 :002 > station.zone
+ => 4
+2.6.0 :003 > station.name
+ => "here"
+
+ ```
+
+ ---
+
+In order to be charged correctly
+As a customer
+I need a penalty charge deducted if I fail to touch in or out
+
+object | behaviours
+-|-
+customer |
+card | penalty_charge
+journey | start_journey, end_journey, calculate_fare, is_complete?
+
+```
+
+```
